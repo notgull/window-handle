@@ -136,7 +136,7 @@ pub trait HasDisplayHandle {
 #[derive(PartialEq, Eq, Hash)]
 pub struct DisplayHandle<'a> {
     raw: RawDisplayHandle,
-    _marker: PhantomData<&'a ()>,
+    _marker: PhantomData<&'a *const ()>,
 }
 
 impl fmt::Debug for DisplayHandle<'_> {
@@ -222,7 +222,7 @@ pub unsafe trait HasWindowHandle {
 #[derive(PartialEq, Eq, Hash)]
 pub struct WindowHandle<'a> {
     raw: RawWindowHandle,
-    _marker: PhantomData<&'a ()>,
+    _marker: PhantomData<&'a *const ()>,
 }
 
 impl fmt::Debug for WindowHandle<'_> {

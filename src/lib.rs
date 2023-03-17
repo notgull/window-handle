@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT OR Apache-2.0 OR Zlib
 //! Medium-rare window handles for Rust windowing applications.
 //!
 //! While the [`raw-window-handle`] crate provides a cross-platform
@@ -10,7 +11,12 @@
 //! [`raw-window-handle`]: https://crates.io/crates/raw-window-handle
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
-#![deny(missing_docs)]
+#![deny(
+    missing_copy_implementations,
+    missing_debug_implementations,
+    missing_docs,
+    rust_2018_idioms
+)]
 #![no_std]
 
 use core::fmt;

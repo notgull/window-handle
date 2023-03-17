@@ -2,6 +2,18 @@
 name = "window-handle"
 version = "0.1.0"
 edition = "2021"
+license = "MIT OR Apache-2.0 OR Zlib"
+authors = ["John Nunley <jtnunley01@gmail.com>"]
+description = "Medium-rare window handles for GUI applications"
+repository = "https://github.com/notgull/window-handle"
+keywords = ["windowing"]
+readme = "README.md"
+documentation = "https://docs.rs/window-handle"
+rust-version = "1.64"
 
 [dependencies]
 raw-window-handle = { version = "0.5.1", default-features = false }
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

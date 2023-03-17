@@ -132,6 +132,8 @@ pub trait HasDisplayHandle {
 }
 
 /// The handle to the display controller of the windowing system.
+///
+/// Get the underlying raw display handle with the `HasRawDisplayHandle` trait.
 #[repr(transparent)]
 #[derive(PartialEq, Eq, Hash)]
 pub struct DisplayHandle<'a> {
@@ -208,7 +210,7 @@ impl<'a> HasDisplayHandle for DisplayHandle<'a> {
 /// safe to implement.
 ///
 /// [`HasRawWindowHandle`]: raw_window_handle::HasRawWindowHandle
-pub unsafe trait HasWindowHandle {
+pub trait HasWindowHandle {
     /// Get a handle to the window.
     fn window_handle<'this, 'active>(&'this self, active: &Active<'active>) -> WindowHandle<'this>
     where
@@ -217,7 +219,8 @@ pub unsafe trait HasWindowHandle {
 
 /// The handle to a window.
 ///
-/// This handle is guaranteed to be safe and valid.
+/// This handle is guaranteed to be safe and valid. Get the underlying
+/// raw window handle with the `HasRawWindowHandle` trait.
 #[repr(transparent)]
 #[derive(PartialEq, Eq, Hash)]
 pub struct WindowHandle<'a> {
@@ -260,7 +263,7 @@ unsafe impl HasRawWindowHandle for WindowHandle<'_> {
     }
 }
 
-unsafe impl<'a> HasWindowHandle for WindowHandle<'a> {
+impl<'a> HasWindowHandle for WindowHandle<'a> {
     fn window_handle<'this, 'active>(&'this self, _active: &Active<'active>) -> WindowHandle<'this>
     where
         'this: 'active,
@@ -268,3 +271,12 @@ unsafe impl<'a> HasWindowHandle for WindowHandle<'a> {
         *self
     }
 }
+
+/// ```compile_fail
+/// use window_handle::{Active, DisplayHandle, WindowHandle};
+/// fn _assert<T: Send + Sync>() {}
+/// _assert::<Active<'static>>();
+/// _assert::<DisplayHandle<'static>>();
+/// _assert::<WindowHandle<'static>>();
+/// ```
+fn _not_send_or_sync() {}

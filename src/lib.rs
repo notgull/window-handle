@@ -125,7 +125,7 @@ pub trait HasDisplayHandle {
     /// Get a handle to the display controller of the windowing system.
     fn display_handle<'this, 'active>(
         &'this self,
-        active: &Active<'active>,
+        active: &'active Active<'_>,
     ) -> DisplayHandle<'this>
     where
         'active: 'this;
@@ -186,7 +186,7 @@ impl<'a> HasDisplayHandle for DisplayHandle<'a> {
 
     fn display_handle<'this, 'active>(
         &'this self,
-        _active: &Active<'active>,
+        _active: &'active Active<'_>,
     ) -> DisplayHandle<'this>
     where
         'active: 'this,
@@ -212,7 +212,10 @@ impl<'a> HasDisplayHandle for DisplayHandle<'a> {
 /// [`HasRawWindowHandle`]: raw_window_handle::HasRawWindowHandle
 pub trait HasWindowHandle {
     /// Get a handle to the window.
-    fn window_handle<'this, 'active>(&'this self, active: &Active<'active>) -> WindowHandle<'this>
+    fn window_handle<'this, 'active>(
+        &'this self,
+        active: &'active Active<'_>,
+    ) -> WindowHandle<'this>
     where
         'active: 'this;
 }
@@ -264,7 +267,10 @@ unsafe impl HasRawWindowHandle for WindowHandle<'_> {
 }
 
 impl<'a> HasWindowHandle for WindowHandle<'a> {
-    fn window_handle<'this, 'active>(&'this self, _active: &Active<'active>) -> WindowHandle<'this>
+    fn window_handle<'this, 'active>(
+        &'this self,
+        _active: &'active Active<'_>,
+    ) -> WindowHandle<'this>
     where
         'active: 'this,
     {

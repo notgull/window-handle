@@ -1,3 +1,7 @@
+# Deprecated
+
+This crate is now **archived**, as it has been merged into the [`raw-window-handle`](https://github.com/rust-windowing/raw-window-handle) crate. See [rust-windowing/raw-window-handle#110](https://github.com/rust-windowing/raw-window-handle/pull/110).
+
 # window-handle
 
 Medium-rare window handles for Rust.
